@@ -2,6 +2,7 @@
 """Module implimentation of baseclass Base"""
 
 
+import models
 import uuid
 from datetime import datetime
 class BaseModel:
@@ -14,16 +15,19 @@ class BaseModel:
             *args: Unused
             **kwargs (dict): key/value pair to be initialized
         """
+
+        tim = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
         if kwargs and len(kwargs) != 0:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.today()
+                    self.__dict__[k] = datetime.strptime(v, tim)
                 else:
                     self.__dict__[k] = v
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.today()
-            self.updated_at = datetime.today()
+            models.storage.new(self)
 
     def __str__(self):
         """Returns string representation of class BaseModels"""
@@ -31,7 +35,8 @@ class BaseModel:
 
     def save(self):
         """Updates public instance attribute"""
-        self.update_at = datetime.today()
+        self.updated_at = datetime.today()
+        models.storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values"""
