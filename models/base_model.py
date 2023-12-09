@@ -7,11 +7,23 @@ from datetime import datetime
 class BaseModel:
     """Class representation of BaseModel"""
 
-    def __init__(self):
-        """Initialization of class BaseModel"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
+    def __init__(self, *args, **kwargs):
+        """Initialization of class BaseModel
+
+        Args:
+            *args: Unused
+            **kwargs (dict): key/value pair to be initialized
+        """
+        if kwargs and len(kwargs) != 0:
+            for k, v in kwargs.items():
+                if k == "created_at" or k == "updated_at":
+                    self.__dict__[k] = datetime.today()
+                else:
+                    self.__dict__[k] = v
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
 
     def __str__(self):
         """Returns string representation of class BaseModels"""
