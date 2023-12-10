@@ -4,11 +4,22 @@ and desirializing data in json format"""
 
 
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import json
 
 
 class FileStorage:
-    """Class representation of the storage engine"""
+    """Class representation of the storage engine
+
+    Attributes:
+        __file_path (str): file storage of json objects
+        __objects (dict): a dictionary of instatiated objects
+    """
 
     __file_path = "file.json"
     __objects = {}

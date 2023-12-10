@@ -4,6 +4,12 @@ import cmd
 import re
 from shlex import split
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models import storage
 
 
@@ -33,7 +39,13 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     __classes = {
-            "BaseModel"
+            "BaseModel",
+            "User",
+            "State",
+            "City",
+            "Amenity",
+            "Place",
+            "Review"
             }
 
     def do_create(self, arg):
@@ -92,18 +104,30 @@ class HBNBCommand(cmd.Cmd):
                     obj.append(objdict.__str__)
             print(obj)
 
+    def do_count(self, arg):
+        """returns the number of instances in a class"""
+        args = parse(arg)
+        count = 0
+        for obj in storage.all().values():
+            if args[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
+
     def do_update(self, arg):
         args = parse(arg)
         obj = storage.all()
 
         if len(args) == 0:
             print("** class name missing **")
+            return False
         if args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+            return False
         if len(args) == 1:
             print("** instance id missing **")
         if "{}.{}".format(args[0], args[1]) not in obj.keys():
             print("** no instance found **")
+            return False
         if len(args) == 2:
             print("** attribute name missing **")
             return False
