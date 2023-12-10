@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Module implimentation of baseclass Base"""
-
-
 import models
 import uuid
 from datetime import datetime
+
+
 class BaseModel:
     """Class representation of BaseModel"""
 
@@ -31,7 +31,9 @@ class BaseModel:
 
     def __str__(self):
         """Returns string representation of class BaseModels"""
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+                                    self.__class__.__name__,
+                                    self.id, self.__dict__)
 
     def save(self):
         """Updates public instance attribute"""
