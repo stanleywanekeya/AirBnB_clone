@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
                 return False
         if len(args) == 4:
             objdict = obj["{}.{}".format(args[0], args[1])]
-            if args[2] in objdict.__class__.__name__.keys():
+            if args[2] in objdict.__class__.__dict__.keys():
                 valtype = type(objdict.__class__.__dict__[args[2]])
                 objdict.__dict__[args[2]] = valtype(args[3])
             else:
