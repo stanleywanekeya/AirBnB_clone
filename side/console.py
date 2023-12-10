@@ -98,10 +98,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj = []
             for objdict in storage.all().values():
-                if len(args) > 0 and args[0] == objdict.__class__.__name__:
-                    obj.append(objdict.__str__())
+                if len(args) > 0 and args[0] == obj.__class__.__name__:
+                    obj.append(objdict.__str__)
                 elif len(args) == 0:
-                    obj.append(objdict.__str__())
+                    obj.append(objdict.__str__)
             print(obj)
 
     def do_count(self, arg):

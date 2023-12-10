@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """Module representation of Amenity class"""
 from models.base_model import BaseModel
 
